@@ -6,7 +6,7 @@ string respuesta;
     try {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('bootcamp.herokuapp.com/LegalAccounts');
+        request.setEndpoint('https://altimetrik-bootcamp.herokuapp.com/LegalAccounts');
         request.setMethod('GET');           
         HttpResponse response = http.send(request);
         
@@ -60,6 +60,7 @@ string respuesta;
                                                 c.First_Name__c = (String) clienteMap.get('FirstName');
                                                 c.Last_Name__c = (String) clienteMap.get('LastName');
                                                 c.Cliente_Nuevo__c = 'Si';
+                                                c.Creado_Por_Admin__c = 'No';
                                                 c.Email__c = (String) clienteMap.get('Email');
                                                 c.Client_Number__c = (String) clienteMap.get('ClientNumber');
                                                 c.Client_Account_Number__c=(String) legalAdvisorMap.get('AccountNumber')+ (String) clienteMap.get('ClientNumber');
@@ -79,6 +80,7 @@ string respuesta;
                                             c.First_Name__c = (String) clienteMap.get('FirstName');
                                             c.Last_Name__c = (String) clienteMap.get('LastName');
                                         	c.Cliente_Nuevo__c = 'Si';
+                                        	c.Creado_Por_Admin__c = 'No';
                                             c.Email__c = (String) clienteMap.get('Email');
                                             c.Client_Number__c = (String) clienteMap.get('ClientNumber');
                                         	c.Client_Account_Number__c=(String) legalAdvisorMap.get('AccountNumber')+ (String) clienteMap.get('ClientNumber');
@@ -95,7 +97,7 @@ string respuesta;
             upsert listaClientes Clientkey.Client_Account_Number__c;
              
                 
-            List<Client__c> listaClientesBorrar = [SELECT Id,Cliente_Nuevo__c,Client_Account_Number__c FROM Client__c WHERE Cliente_Nuevo__c = 'No' ];
+            List<Client__c> listaClientesBorrar = [SELECT Id,Cliente_Nuevo__c,Client_Account_Number__c,Creado_Por_Admin__c FROM Client__c WHERE (Cliente_Nuevo__c = 'No' AND Creado_Por_Admin__c = 'No' )];
 			delete listaClientesBorrar;    
             	List<Client__c> listaClientesViejos = [SELECT Id,Cliente_Nuevo__c,Client_Account_Number__c FROM Client__c ];
 				List<Client__c> listaClientesActual = new List<Client__c>();
@@ -113,6 +115,7 @@ string respuesta;
         Error__c b = new Error__c();
         b.Nombre_del_error__c =e.getTypeName();
         insert b;
+        ucl_Error.SendEmailAndSaveError(e.getTypeName());
         return b.Nombre_del_error__c;
         //throw new AuraHandledException(e.getMessage()); 
 	} 

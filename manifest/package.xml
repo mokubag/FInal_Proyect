@@ -6,7 +6,15 @@
     </types>
     <types>
         <members>*</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Universal_Containers_Lawyers_app</members>
+        <name>CustomApplication</name>
     </types>
     <types>
         <members>*</members>
