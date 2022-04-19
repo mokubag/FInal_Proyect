@@ -2,7 +2,6 @@ import { LightningElement, wire } from 'lwc';
 import makeGetCallout from '@salesforce/apex/ucl_LegalAdvisors.makeGetCallout'; 
 import getTotalLegalAdvisors from '@salesforce/apex/ucl_TotalLegal.getTotalLegalAdvisors'; 
 import getTotalClients from '@salesforce/apex/ucl_TotalClients.getTotalClients'; 
-import SendEmailAndSaveError from '@salesforce/apex/ucl_Error.SendEmailAndSaveError'; 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class Ucl_AddLegalAdvisors extends LightningElement {
@@ -26,7 +25,6 @@ export default class Ucl_AddLegalAdvisors extends LightningElement {
                 variant: 'success'
             }));
         }else{
-            SendEmailAndSaveError(str);
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Update/insert',
                 message: 'error',
