@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Actulizar los Legal Advisor">
+        <div>
+            Cantidad total Legal Advisors  {TotalLegal}   Cantidad total de clientes {TotalClientes}
+        </div>
+
+        <lightning-button title='Update' label="Insert/Update"  onclick = {handleclick}>
+            {myTitle}
+        </lightning-button >
+        
+        <lightning-button title='Update2' label="Total Legal Advisors/Clients"  onclick = {handleclick1}>
+            
+        </lightning-button >
+
+        <template if:true={errors}>
+            <p>{errors}</p>
+        </template>
+    </lightning-card>   
+</template>
